@@ -1,0 +1,42 @@
+class Solution {
+    public int numberOfSubarrays(int[] nums, int k) {
+        int left=0;
+        int right=0;
+        int count=0;
+        int ans=0;
+        if(nums[0]%2==1){
+            count++;
+        }
+        int nextOdd[]=new int[nums.length];
+        nextOdd[nums.length-1]=nums.length;
+        for(int i=nums.length-2;i>=0;i--){
+            if(nums[i+1]%2==1){
+                nextOdd[i]=i+1;
+            }
+            else{
+                nextOdd[i]=nextOdd[i+1];
+            }
+        }
+        while(left<nums.length&&right<nums.length){
+            
+            if(count==k){
+                ans+=nextOdd[right]-right;
+                
+                if(nums[left]%2==1){
+                    count--;
+                    
+                }
+                left++;
+            }
+            else{
+                right++;
+                if(right<nums.length&&nums[right]%2==1){
+                count++;
+            }
+            }
+
+        }
+        
+        return ans;
+    }
+}
